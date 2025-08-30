@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nti_app/core/serveces/gitit.dart';
+import 'package:nti_app/core/widgets/BuildSnakBar.dart';
+import 'package:nti_app/core/widgets/CustomProgressHUD.dart';
 import 'package:nti_app/core/widgets/buildAppBar.dart';
+import 'package:nti_app/features/auth/domin/repo/AuthRebo.dart';
+import 'package:nti_app/features/auth/presentstion/cubits/siginin/signin_cubit_cubit.dart';
 import 'package:nti_app/features/auth/presentstion/views/widgets/SiginViewBoby.dart';
-
-
 
 class SiginView extends StatelessWidget {
   const SiginView({super.key});
@@ -10,9 +14,36 @@ class SiginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: buildAppBar(context, title: 'تسجيل دخول'),
-      body: const SiginVeiwBody(),
+    return BlocProvider(
+      create: (context) => SigninCubit(getIt<AuthRepo>()),
+      child: Scaffold(
+        appBar: buildAppBar(context, title: 'تسجيل دخول'),
+        body: const SiginVeiwBodyBlocConsumer(),
+      ),
+    );
+  }
+}
+
+class SiginVeiwBodyBlocConsumer extends StatelessWidget {
+  const SiginVeiwBodyBlocConsumer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<SigninCubit, SigninCubitState>(
+      listener: (context, state) {
+        if (state is SigninCubitSuccess) {
+          BuildSnakBar(context, 'تم تسجيل الدخول');
+        }
+        if (state is SigninCubitFaluir) {
+          BuildSnakBar(context, state.errMassege);
+        }
+      },
+      builder: (context, state) {
+        return CustoProgressHUD(
+          isLoading: state is SigninCubitLoading,
+          child: const SiginVeiwBody(),
+        );
+      },
     );
   }
 }

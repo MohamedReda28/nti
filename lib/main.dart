@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nti_app/core/helpFunction/onGenrateRoute.dart';
 import 'package:nti_app/core/serveces/gitit.dart';
 import 'package:nti_app/generated/l10n.dart';
+import 'core/serveces/shardpreferance_Singlton.dart';
 import 'core/uitels/App_Color.dart';
 import 'features/auth/presentstion/views/signinView.dart';
 import 'firebase_options.dart';
@@ -13,7 +14,9 @@ void main()async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
- gititsetup();
+  await SharPref.init();
+
+  gititsetup();
 
   runApp(const NtiApp());
 

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nti_app/features/auth/presentstion/cubits/siginin/signin_cubit_cubit.dart';
 import '../../../../../core/uitels/App_Color.dart';
 import '../../../../../core/uitels/App_TextStyle.dart';
 import '../../../../../core/uitels/app_images.dart';
@@ -78,7 +80,15 @@ class _SiginVeiwBodyState extends State<SiginVeiwBody> {
                 child: CustomBotton(
                   title: 'تسجيل دخول',
                   ontap: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      context.read<SigninCubit>().signInWithEmailAndPassword(email: email, password: password);
 
+                    } else {
+                      setState(() {
+                        autoValidateMode = AutovalidateMode.always;
+                      });
+                    }
                   },
                 ),
               ),
