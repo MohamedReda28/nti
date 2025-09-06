@@ -37,14 +37,14 @@ class AuthRepoImpli extends AuthRepo {
       if (user != null) {
         fireBaseAuthServece.deleteUser();
       }
-      return left(ServerFailur(errMassege: e.message));
+      return left(ServerFailure(errMassege: e.message));
     } catch (e) {
       if (user != null) {
         fireBaseAuthServece.deleteUser();
       }
 
       log('Exsiption in createUserWithEmailAndPassword ${e.toString()}');
-      return left(ServerFailur(errMassege: e.toString()));
+      return left(ServerFailure(errMassege: e.toString()));
     }
   }
 
@@ -56,11 +56,11 @@ class AuthRepoImpli extends AuthRepo {
           email: email, password: password);
       // UserModel userModel = UserModel.fromfirebaseuser(user);
       // UserEntity userEntity = userModel.toEntity();
-      var userEntity =await getUserData(uID:user.uid );
+      var userEntity = await getUserData(uID: user.uid);
       saveUserData(user: userEntity);
       return right(userEntity);
     } on CustomException catch (e) {
-      return left(ServerFailur(errMassege: e.message));
+      return left(ServerFailure(errMassege: e.message));
     }
   }
 
@@ -72,24 +72,21 @@ class AuthRepoImpli extends AuthRepo {
       docId: user.uId,
     );
   }
-  
-  @override
-  Future<UserEntity> getUserData({required String uID})async{
-   var data=await dataBaseServese.getData(
-    path: BackEndEndPoint.getUserData,
-    docId: uID,
-    )as Map<String,dynamic>;
-   UserModel userModel= UserModel.fromJson(data);
-   UserEntity userEntity = userModel.toEntity();
-   return userEntity;
 
+  @override
+  Future<UserEntity> getUserData({required String uID}) async {
+    var data = await dataBaseServese.getData(
+      path: BackEndEndPoint.getUserData,
+      docId: uID,
+    ) as Map<String, dynamic>;
+    UserModel userModel = UserModel.fromJson(data);
+    UserEntity userEntity = userModel.toEntity();
+    return userEntity;
   }
 
   @override
   Future saveUserData({required UserEntity user}) async {
     var jsonData = jsonEncode(UserModel.FromEntity(user).toJson());
     await SharPref.setString(BackEndEndPoint.addUserDataformLocal, jsonData);
-
   }
-
 }

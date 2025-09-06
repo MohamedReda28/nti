@@ -8,6 +8,8 @@ import 'package:nti_app/features/auth/domin/repo/AuthRebo.dart';
 import 'package:nti_app/features/auth/presentstion/cubits/siginin/signin_cubit_cubit.dart';
 import 'package:nti_app/features/auth/presentstion/views/widgets/SiginViewBoby.dart';
 
+import '../../../Home/peresntation/views/mainView.dart';
+
 class SiginView extends StatelessWidget {
   const SiginView({super.key});
   static const routeName = 'SiginView';
@@ -33,6 +35,7 @@ class SiginVeiwBodyBlocConsumer extends StatelessWidget {
       listener: (context, state) {
         if (state is SigninCubitSuccess) {
           BuildSnakBar(context, 'تم تسجيل الدخول');
+          Navigator.pushNamed(context, MainView.routeName);
         }
         if (state is SigninCubitFaluir) {
           BuildSnakBar(context, state.errMassege);

@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../core/uitels/App_Color.dart';
 import '../../../../../core/uitels/app_images.dart';
 
-
 class CustomCheckBox extends StatelessWidget {
   const CustomCheckBox({
     super.key,

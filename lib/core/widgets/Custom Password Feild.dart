@@ -24,8 +24,9 @@ class _CustomPasswordFeildState extends State<CustomPasswordFeild> {
           obscureText = !obscureText;
           setState(() {});
         },
-        child:
-            obscureText ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+        child: obscureText
+            ? const Icon(Icons.visibility_off)
+            : const Icon(Icons.visibility),
       ),
     );
   }

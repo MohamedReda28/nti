@@ -10,15 +10,14 @@ class SinupCubit extends Cubit<SinupState> {
 
   final AuthRepo authRepo;
 
-  Future<void> createUserWithEmailAndPassword({required String name,required String email, required String password}) async{
-
+  Future<void> createUserWithEmailAndPassword(
+      {required String name,
+      required String email,
+      required String password}) async {
     emit(SinupLoading());
-    var result = await authRepo.createUserWithEmailAndPassword(email: email, password: password, name: name);
-    result.fold(
-      (faluir)=>emit(SinupFauiler(faluir.errMassege))
-    , 
-    (UserEntity)=>emit(SinupSussecc(UserEntity))
-    );
+    var result = await authRepo.createUserWithEmailAndPassword(
+        email: email, password: password, name: name);
+    result.fold((faluir) => emit(SinupFauiler(faluir.errMassege)),
+        (UserEntity) => emit(SinupSussecc(UserEntity)));
   }
-
 }

@@ -82,8 +82,8 @@ class _SiginVeiwBodyState extends State<SiginVeiwBody> {
                   ontap: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      context.read<SigninCubit>().signInWithEmailAndPassword(email: email, password: password);
-
+                      context.read<SigninCubit>().signInWithEmailAndPassword(
+                          email: email, password: password);
                     } else {
                       setState(() {
                         autoValidateMode = AutovalidateMode.always;
@@ -99,7 +99,7 @@ class _SiginVeiwBodyState extends State<SiginVeiwBody> {
                 textone: 'لا تمتلك حساب؟',
                 texttwo: 'قم نانشاء حساب',
                 ontap: () {
-                  Navigator.pushNamed(context,SignUpView.routeName);
+                  Navigator.pushNamed(context, SignUpView.routeName);
                 },
               ),
               const SizedBox(

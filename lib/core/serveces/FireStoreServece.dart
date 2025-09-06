@@ -14,7 +14,7 @@ class Firestoreservece implements DataBaseServese {
       await firestore.collection(path).add(data);
     }
   }
-  
+
   @override
   Future<dynamic> getData({required String path, String? docId}) async {
     var data;
@@ -25,6 +25,4 @@ class Firestoreservece implements DataBaseServese {
     }
     return data.data();
   }
-
-
 }
